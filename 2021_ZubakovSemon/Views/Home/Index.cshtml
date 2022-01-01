@@ -1,0 +1,40 @@
+﻿@{
+    ViewData["Title"] = "Главная";
+}
+
+
+
+@if (User.Identity.IsAuthenticated)
+{      
+    
+<div style="width: 200px; background-color:whitesmoke; border:2px solid grey; height: 110px; position: absolute; left: 88%; top: 61px; border-radius:15px">
+    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse" style="position: relative; left:20px; top:5px; ">
+        <b style=" font-size:19px; ">@User.Identity.Name</b>
+    </div>
+
+    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse" style="position: relative; top:20px; right: -19px">
+
+        <form method="post" asp-controller="Account" asp-action="Logout">
+            <input   style="font-size:15pt" class="btn btn-primary btn btn-block" type="submit" value="Выход" />
+        </form>
+
+    </div>
+
+
+
+</div>
+   
+        }
+        else
+        {
+        <div  style="position: absolute; left: 92%; ">
+            <a   style="font-size:15pt"  class= "btn btn-primary btn btn-block" asp-controller="Account" asp-action="Login">Вход</a>
+        </div>
+
+        }
+
+<h5 style="font-size: 18pt">Добро пожаловать!</h5>
+<p style="font-size: 14pt">Данный сайт предназначен для расчета зависимоти T от толщины стенки</p>
+<p style="font-size: 14pt">Для того, чтобы приступить к расчету нажмите кнопку "Ввод данных" в верхнем углу</p>
+<p style="font-size: 14pt">Так же вы можете пройти регистрацию или авторизацию для добавления возможности сохранения исходных данных</p>
+<p style="font-size: 14pt">Если у вас возникли вопросы по работе программы, методике расчета или же вы хотите оставить обратную связь о работе нашего сайта, обратитесь, пожалуйста в меню справки в левом нижнем углу.</p>

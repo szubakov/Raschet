@@ -1,0 +1,27 @@
+﻿@{ ViewData["Title"] = "Результаты расчета"; }
+@model _2021_ZubakovSemon.Models.ArvicheOutputs
+
+@if (User.Identity.IsAuthenticated)
+{
+<div class="text-left">
+    <h2>Форма с архивом исходных данных</h2>
+    <div class="container">
+        <div class="container">
+            <div class="row">
+                <div class="col-3 border border-dark">Название</div>
+                <div class="col-6 border border-dark">Ссылка</div>
+            </div>
+            @foreach (var item in Model.DataSet)
+            {
+        <div class="row">
+            <div class="col-3 border border-dark">
+                <span>@item.Name</span>
+            </div>
+            <div class="col-6 border border-dark">
+                <a href="/Home/InputFromStore?ID=@item.ID">Ссылка на исходные данные</a>
+            </div>
+        </div>}
+        </div>
+    </div>
+</div>
+}

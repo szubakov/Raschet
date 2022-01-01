@@ -1,0 +1,142 @@
+﻿@using Microsoft.AspNetCore.Http
+@{
+    ViewData["Title"] = "Построение графика";
+}
+@model _2021_ZubakovSemon.Models.GraphicNewModel;
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.6.2/dist/chart.min.js"></script>
+@if (Model != null)
+{
+    <script>
+
+                var barChartData =
+                    {
+                        datasets:
+                            [{
+                                label: 't',
+                                type: 'line',
+                                borderWidth: 3,
+                                borderColor: 'blue',
+                                data: @Html.Raw(Model.DataSet)  //what you returned back from controller. values displayed on the y-axis, see images below
+                            },@Html.Raw(Model.AdditionalData)]
+                    };
+
+                    var barChart =
+                    {
+                            datasets:
+                            [{
+                                label: 'Разность',
+                                type: 'line',
+                                borderWidth: 3,
+                                borderColor: 'red',
+                                data: @Html.Raw(Model.RasnostData)  //what you returned back from controller. values displayed on the y-axis, see images below
+                            }]
+                    };
+
+                    window.onload = function ()
+                    {
+                            const ctx = document.getElementById("barcanvas").getContext("2d");
+                            const myChart = new Chart(ctx,
+                                {
+                                    data: barChartData,
+                                    options: {
+                                        scales: {
+                                            x: {
+                                                title: {
+                                                    display: true,
+                                                    text: 'Толщина слоя (м)'
+                                                },
+                                                type: 'linear',
+                                                offset: false,
+                                                stepSize: 0.5,
+                                            },
+                                            y: {
+                                                title: {
+                                                    display: true,
+                                                    text: 'Температура °C',
+                                                },
+                                                beginAtZero: true
+                                            }
+                                        },
+                                        plugins: {
+                                            title: {
+                                                display: true,
+                                                text: 'Изменение температур материала и газа по высоте слоя',
+                                                position: 'top',
+                                                fontSize: 16,
+                                                padding: 20
+                                            },
+                                            datalabels: {
+                                                color: 'blue',
+                                                labels: {
+                                                    title: {
+                                                        font: {
+                                                            weight: 'bold'
+                                                        }
+                                                    },
+                                                    value: {
+                                                        color: 'green'
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                });
+                        const ctx2 = document.getElementById("canvas").getContext("2d");
+                        const myChart2 = new Chart(ctx2,
+                            {
+                                data: barChart,
+                                options: {                                    
+                                    scales: {
+                                        x: {
+                                            title: {
+                                                display: true,
+                                                text: 'Толщина слоя (м)'
+                                            },
+                                            type: 'linear',
+                                            offset: false,
+                                            stepSize: 0.5,
+                                        },
+                                        y: {
+                                            title: {
+                                                display: true,
+                                                text: 'Температура °C',
+                                            },
+                                            beginAtZero: true
+                                        }
+                                    },
+                                    plugins: {
+                                        title: {
+                                            display: true,
+                                            text: 'Разность температур материала и газа',
+                                            position: 'top',
+                                            fontSize: 16,
+                                            padding: 20
+                                        },
+                                        datalabels: {
+                                            color: 'blue',
+                                            labels: {
+                                                title: {
+                                                    font: {
+                                                        weight: 'bold'
+                                                    }
+                                                },
+                                                value: {
+                                                    color: 'green'
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            });
+                    }
+    </script>
+
+    <div style="text-align: center">
+        <canvas id="barcanvas"></canvas>
+    </div>
+    <div style="text-align: center">
+        <canvas id="canvas"></canvas>
+    </div>
+    <div style="text-align: center"></div>
+}

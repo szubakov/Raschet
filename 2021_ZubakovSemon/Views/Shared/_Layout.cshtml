@@ -1,0 +1,74 @@
+﻿@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Расчет плоской печной стенки</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css" />
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <link rel="icon" href="~/css/favicon.ico" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm  border-bottom box-shadow mb-3">
+            <div class="container">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li style="margin-right:50px" class="nav-item">
+                            <b style="font-size: 15pt; font: arial"><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Главная</a></b>
+                        </li>
+
+                        <li style="margin-right:50px" class="nav-item">
+                            <b style="font-size:15pt"><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="InputNew">Ввод данных</a></b>
+                        </li>
+                        @if (!User.Identity.IsAuthenticated)
+                        {
+                            <li style="margin-right:50px" class="nav-item">
+                                <b style="font-size:15pt"><a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">Регистрация</a></b>
+                            </li>
+                        }
+                        @if ((await AuthorizationService.AuthorizeAsync(User, "Policy")).Succeeded)
+                        {
+                            <li style="margin-right:50px" class="nav-item">
+                                <b style="font-size:15pt"><a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="Index">Редактирование пользователей</a></b>
+                            </li>
+                            <li style="margin-right:50px" class="nav-item">
+                                <b style="font-size:15pt"><a class="nav-link text-dark" st asp-area="" asp-controller="Roles" asp-action="Index">Роли</a></b>
+                            </li>
+                        }
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li style="margin-right:50px" class="nav-item">
+                                <b style="font-size:15pt"><a class="nav-link text-dark" asp-controller="Users" asp-action="ChangePasswordUser">Сменить пароль</a></b>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+    <footer class="border-top footer text-muted" style="background-color: black">
+        <div class="container" style="color:white">
+           Построение графика зависимости температуры от толщины слоя
+        </div>
+    </footer>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

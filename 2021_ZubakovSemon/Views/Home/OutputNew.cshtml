@@ -1,0 +1,75 @@
+﻿@{ ViewData["Title"] = "Результаты расчета"; }
+@model _2021_ZubakovSemon.Models.DataOutputNewModel
+<div class="text-left">
+    <h2>Форма с результатами расчета</h2>
+    <div class="container">
+        <h2>Расчетные показатели</h2>
+        <div class="container">
+            <div class="row">
+                <div class="col-3 border border-dark">Величины / X, m</div>
+                @foreach (var item in Model.SloyM)
+                {
+    <div class="col-1 border border-dark">@item</div>}
+            </div>
+            <div class="row">
+                <div class="col-3 border border-dark">Высота Y</div>
+                @foreach (var item in Model.Y)
+                {
+    <div class="col-1 border border-dark">@item</div>}
+            </div>            <div class="row">
+                <div class="col-3 border border-dark">1-exp(Y)</div>
+                @foreach (var item in Model.Exp1)
+                {
+    <div class="col-1 border border-dark">@item</div>}
+            </div>            <div class="row">
+                <div class="col-3 border border-dark">1-mexp(Y)</div>
+                @foreach (var item in Model.MExp1)
+                {
+    <div class="col-1 border border-dark">@item</div>}
+            </div>            <div class="row">
+                <div class="col-3 border border-dark">Значение V</div>
+                @foreach (var item in Model.Vr)
+                {
+    <div class="col-1 border border-dark">@item</div>}
+            </div>            <div class="row">
+                <div class="col-3 border border-dark">Значение Тетта</div>
+                @foreach (var item in Model.v_r)
+                {
+    <div class="col-1 border border-dark">@item</div>}
+            </div>            <div class="row">
+                <div class="col-3 border border-dark"> t </div>
+                @foreach (var item in Model.t_r)
+                {
+    <div class="col-1 border border-dark">@item</div>}
+            </div>
+            <div class="row">
+                <div class="col-3 border border-dark"> T </div>
+                @foreach (var item in Model.Tr)
+                {
+    <div class="col-1 border border-dark">@item</div>}
+            </div>
+            <div class="row">
+                <div class="col-3 border border-dark">Разность температур</div>
+                @foreach (var item in Model.Trasnost)
+                {
+    <div class="col-1 border border-dark">@item</div>}
+            </div>
+
+            <div class="row">
+                <div class="col-1 my-3">
+                    @using (Html.BeginForm("GraphicNew", "Home", FormMethod.Post))
+                    {
+            <button type="submit" style="font-size: 16px" class="btn btn-primary">График</button>}
+                </div>
+              
+
+                </div>
+            </div>
+    </div>
+</div>
+
+
+
+
+
+

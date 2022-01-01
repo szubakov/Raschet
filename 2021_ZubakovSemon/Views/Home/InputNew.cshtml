@@ -1,0 +1,158 @@
+﻿@{ ViewData["Title"] = "Исходные данные"; }
+@model _2021_ZubakovSemon.Models.DataInputNewModel;
+
+@using (Html.BeginForm("DataInputNew", "Home", FormMethod.Post))
+{
+<div class="text-left">
+    <h3>Форма внесения исходных данных</h3>
+    <p><b>Для расчета заполните следующие поля:</b></p>
+    <form method="post">
+        <div class="validation" asp-validation-summary="ModelOnly"></div>
+        <table>
+
+            <tr class="layer layer_2 layer_3 layer_4 ">
+                <td>Высота слоя H0, м:</td>
+                <td class="td_value">@Html.TextBox("DataInput.H0", (double)(Model.H0), htmlAttributes: new { type = "text", style = "  border-radius: 10px; border: 1px solid black; width:500x; text-align:center", onkeypress = " return event.charCode == 44 || (event.charCode >= 48 && event.charCode <= 57)" })</td>
+
+            </tr>
+            <tr>
+                <td>Начальная температура материала t', 0С:</td>
+                <td class="td_value">@Html.TextBox("DataInput.TempMat", (double)(Model.TempMat), htmlAttributes: new { type = "text", style = " border-radius: 10px; border: 1px solid black; text-align:center", @class = "layer layer_2 layer_3 layer_4", onkeypress = " return event.charCode == 44 || (event.charCode >= 48 && event.charCode <= 57)" })</td>
+            </tr>
+            <tr>
+                <td>Начальная температура газа T', 0С:</td>
+                <td class="td_value">@Html.TextBox("DataInput.T0Gasa", (double)(Model.T0Gasa), htmlAttributes: new { type = "text", style = "  border-radius: 10px; border: 1px solid black; text-align:center ", @class = "layer layer_3 layer_4 ", onkeypress = " return event.charCode == 44 || (event.charCode >= 48 && event.charCode <= 57)" })</td>
+            </tr>
+            <tr>
+                <td>Скорость газа на свободное сечение шахты Wг, м/с:</td>
+                <td class="td_value">@Html.TextBox("DataInput.VoGas", (double)(Model.VoGas), htmlAttributes: new { type = "text", style = "  border-radius: 10px; border: 1px solid black; text-align:center ", @class = "layer layer_4", onkeypress = " return event.charCode == 44 || (event.charCode >= 48 && event.charCode <= 57)" })</td>
+            </tr>
+            <tr>
+                <td>Средняя теплоемкость газа Cг, кДж/(м3 • К):</td>
+                <td class="td_value">@Html.TextBox("DataInput.asred", (double)(Model.asred), htmlAttributes: new { type = "text", style = "  border-radius: 10px; border: 1px solid black; text-align:center ", onkeypress = " return event.charCode == 44 || (event.charCode >= 48 && event.charCode <= 57)" })</td>
+            </tr>
+            <tr>
+                <td>Расход материалов,Cм кг/с:</td>
+                <td class="td_value">@Html.TextBox("DataInput.Cm", (double)(Model.Cm), htmlAttributes: new { type = "text", style = "  border-radius: 10px; border: 1px solid black; text-align:center ", onkeypress = " return event.charCode == 44 || (event.charCode >= 48 && event.charCode <= 57)" })</td>
+            </tr>
+
+            <tr>
+                <td>Теплоемкость материалов Gм, кДж/(кг • К)</td>
+                <td class="td_value">@Html.TextBox("DataInput.Gm", (double)(Model.Gm), htmlAttributes: new { type = "text", style = "  border-radius: 10px; border: 1px solid black; text-align:center", onkeypress = " return event.charCode == 44 || (event.charCode >= 48 && event.charCode <= 57)" })</td>
+            </tr>
+            <tr>
+                <td>Объемный коэффициент теплоотдачи av, Вт/(м3 • К):</td>
+                <td class="td_value">@Html.TextBox("DataInput.av", (double)(Model.av), htmlAttributes: new { type = "text", style = "  border-radius: 10px; border: 1px solid black; text-align:center ", onkeypress = " return event.charCode == 44 || (event.charCode >= 48 && event.charCode <= 57)" })</td>
+            </tr>
+            <tr>
+                <td>Диаметр аппарата, м:</td>
+                <td class="td_value">@Html.TextBox("DataInput.D", (double)(Model.D), htmlAttributes: new { type = "text", style = "  border-radius: 10px; border: 1px solid black; text-align:center ", onkeypress = " return event.charCode == 44 || (event.charCode >= 48 && event.charCode <= 57)" })</td>
+            </tr>
+            <tr>
+                <td class="td_value" style="display:none">@Html.TextBox("DataInput.Name", (Model.Name), htmlAttributes: new { type = "text", style = "  border-radius: 10px; border: 1px solid black; text-align:center ", onkeypress = " return event.charCode == 44 || (event.charCode >= 48 && event.charCode <= 57)" })</td>
+            </tr>
+            <tr>
+                <td class="td_value" style="display:none">@Html.TextBox("DataInput.Email", (Model.Email), htmlAttributes: new { type = "text", style = "  border-radius: 10px; border: 1px solid black; text-align:center ", onkeypress = " return event.charCode == 44 || (event.charCode >= 48 && event.charCode <= 57)" })</td>
+            </tr>
+            <tr>
+                <td class="td_value" style="display:none">@Html.TextBox("DataInput.ActionSave", (Model.ActionSave), htmlAttributes: new { type = "text", style = "  border-radius: 10px; border: 1px solid black; text-align:center ", onkeypress = " return event.charCode == 44 || (event.charCode >= 48 && event.charCode <= 57)" })</td>
+            </tr>
+        </table>
+
+        <div class="form-group" style="margin-left: auto; margin-top: 20px">
+            <button type="button" name="action" value="toSolver" onclick="valid()" style="font-size: 16px" class="btn btn-primary">Расчет</button>
+        </div>
+        <p style="font-size:14px"><i>*Обратите внимание: все поля должны быть заполнены, необходимо вводить только числа</i></p>
+
+        @if (User.Identity.IsAuthenticated)
+        {
+    <div class="row">
+        <div class="col-2 my-3">
+            <button type="button" id="btn_save" style="font-size: 16px" class="btn btn-primary">Сохранить данные</button>
+        </div>
+        <div class="col-4 my-3">
+            <a href="/Home/Archive?email=@User.Identity.Name" style="font-size: 16px" class="btn btn-primary">История входных данных</a>
+        </div>
+    </div>
+        }
+
+        <div id="confirmDialog" title="Сохранение данных">
+            <p>Данные успешно сохранены</p>
+        </div>
+        <div id="savedialog" title="Сохранение данных">
+            <p>введите имя исходных анных</p>
+            <p><input type="text" id="name" /></p>
+        </div>
+    </form>
+</div>
+}
+
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="https://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
+
+<script>
+    $(function () {
+        $("#savedialog").dialog({
+            autoOpen: false,
+            modal: true,
+            resizable: false,
+            buttons: {
+                "Ok": function ()
+                {
+                    $('#DataInput_Name').val($('#name').val());
+                    $('#DataInput_Email').val('@User.Identity.Name');
+                    $('#DataInput_ActionSave').val('true');
+                    valid();
+                },
+            },
+        });
+
+        $("#confirmDialog").dialog({
+            autoOpen: false,
+            modal: true,
+            resizable: false,
+            buttons: {
+                "OK": function () {
+                    $(this).dialog("close");
+                },
+            },
+        });
+
+
+        $('#btn_save').click(function (e) {
+            e.stopPropagation();
+            $('#savedialog').dialog('open');
+        });
+
+        $(document).ready(function () {
+            var success = '@Model.IsSaved';
+            if (success=='True') { $('#confirmDialog').dialog('open'); }
+        });
+
+    });
+</script>
+
+<script>function valid() {
+    var check = 0;
+
+        if ($('#DataInput_ActionSave').val() != 'true')
+        {
+            $('#DataInput_Name').val('_');
+            $('#DataInput_Email').val('_');
+            $('#DataInput_ActionSave').val('false');
+        }
+        $(".td_value").each(function () {
+            console.log($(this).children().val());
+            if ($(this).children().val() == "") {
+                check = 0;
+                return false;
+            } else {
+                check = 1;
+            }
+        });
+        if (check == 1) {
+            $("form").submit();
+        } else {
+            alert("Проверьте, что вы заполнили все поля");
+        }
+    }</script>
